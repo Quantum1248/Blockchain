@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading;
 using System.Net;
 using System.Net.Sockets;
+using System.Security.Cryptography;
+using System.IO;
 
 namespace Client_ViggiCoin_v2._0
 {
@@ -31,7 +33,21 @@ namespace Client_ViggiCoin_v2._0
 
         private CServer(List<CPeer> Peers)
         {
-            RSA.GenRSAKey(PublicKey,PrivateKey);
+            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+            if (File.Exists("keystore.xml"))
+            {
+                rsa = new RSACryptoServiceProvider();
+                rsa.FromXmlString("keystore.xml");
+            }
+            else
+            {
+                rsa = RSA.GenRSAKey();
+                string xmlString = rsa.ToXmlString(true);
+                File.WriteAllText("keystore.xml", xmlString);
+            }
+
+            byte[] encrypted = RSA.Encrypt(Encoding.ASCII.GetBytes("0x2a65aca4d5fc5b5c859090a6c34d164135398226"), rsa.ExportParameters(false), false);
+            string decrypted = Encoding.ASCII.GetString(RSA.Decrypt(encrypted, rsa.ExportParameters(true), false));
             mLastBlockNumber = CBlockChain.Instance.LastBlock.BlockNumber;
             if (Program.DEBUG)
                 CIO.DebugOut("Last block number: " + mLastBlockNumber+".");

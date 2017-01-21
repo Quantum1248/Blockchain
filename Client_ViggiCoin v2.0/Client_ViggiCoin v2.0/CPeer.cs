@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Net.Sockets;
 using System.Net;
+using System.Security.Cryptography;
 
 namespace Client_ViggiCoin_v2._0
 {
@@ -14,7 +15,8 @@ namespace Client_ViggiCoin_v2._0
         private int mPort;
         private Socket mSocket;
         //TODO: cambiare l'inizializzazione una volta definite le classi
-        private RSAKey mPublicKey=null;
+        private RSACryptoServiceProvider csp = null;
+        private RSACryptoServiceProvider cspMine;
         private Thread mThreadListener;
         private bool mConnect;
         private CPeer()
@@ -105,14 +107,14 @@ namespace Client_ViggiCoin_v2._0
         public void SendData(string Msg)
         {
             byte[] EncryptedMsg;
-            EncryptedMsg = RSA.Encrypt(ASCIIEncoding.ASCII.GetBytes(Msg), mPublicKey);
+            EncryptedMsg = RSA.Encrypt(ASCIIEncoding.ASCII.GetBytes(Msg), csp.ExportParameters(false), false);
             CServer.SendData(mSocket, EncryptedMsg);//non è asincrono!!
         }
 
         public string ReceiveData()
         {
             byte[] DecryptedMsg;
-            DecryptedMsg = RSA.Decrypt(CServer.ReceiveData(mSocket), CServer.PrivateKey);
+            DecryptedMsg = RSA.Decrypt(CServer.ReceiveData(mSocket), cspMine.ExportParameters(true), false);
             return ASCIIEncoding.ASCII.GetString(DecryptedMsg);
         }
 
