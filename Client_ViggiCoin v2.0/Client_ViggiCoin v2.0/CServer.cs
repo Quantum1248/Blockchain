@@ -14,8 +14,8 @@ namespace Client_ViggiCoin_v2._0
     {
         //RSA
         //TODO: cambiare l'inizializzazione una volta definite le classi
-        public static RSAKey PublicKey = null;
-        public static RSAKey PrivateKey = null;
+        public static RSACryptoServiceProvider rsaKeyPair;
+
 
         private Thread mUpdateBlockChainThread;
         private CPeers mPeers;
@@ -33,21 +33,21 @@ namespace Client_ViggiCoin_v2._0
 
         private CServer(List<CPeer> Peers)
         {
-            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
-            if (File.Exists("keystore.xml"))
+            rsaKeyPair = new RSACryptoServiceProvider();// crea oggetto CSP per generare o caricare il keypair
+            if (File.Exists("keystore.xml"))// Se il file di keystore esiste viene caricato in memoria
             {
-                rsa = new RSACryptoServiceProvider();
-                rsa.FromXmlString("keystore.xml");
+                rsaKeyPair = new RSACryptoServiceProvider();
+                string xmlString = rsaKeyPair.ToXmlString(true);
+                File.WriteAllText("keystore.xml", xmlString);
             }
-            else
+            else//se il file non esiste ne viene generato uno
             {
-                rsa = RSA.GenRSAKey();
-                string xmlString = rsa.ToXmlString(true);
+                rsaKeyPair = RSA.GenRSAKey();
+                string xmlString = rsaKeyPair.ToXmlString(true);
                 File.WriteAllText("keystore.xml", xmlString);
             }
 
-            byte[] encrypted = RSA.Encrypt(Encoding.ASCII.GetBytes("0x2a65aca4d5fc5b5c859090a6c34d164135398226"), rsa.ExportParameters(false), false);
-            string decrypted = Encoding.ASCII.GetString(RSA.Decrypt(encrypted, rsa.ExportParameters(true), false));
+            
             mLastBlockNumber = CBlockChain.Instance.LastBlock.BlockNumber;
             if (Program.DEBUG)
                 CIO.DebugOut("Last block number: " + mLastBlockNumber+".");
