@@ -71,6 +71,19 @@ namespace Client_ViggiCoin_v2._0
 
         }
 
+        public static string ExportPubKey(RSACryptoServiceProvider csp)
+        {
+            byte[] blob = csp.ExportCspBlob(false);
+            string pubKey = Convert.ToBase64String(blob);
+            return pubKey;
+        }
+
+        public static void ImportPubKey(string base64PubKey, RSACryptoServiceProvider csp)
+        {
+            byte[] blob = Convert.FromBase64String(base64PubKey);
+            csp.ImportCspBlob(blob);
+            
+        }
         internal static RSACryptoServiceProvider GenRSAKey()
         {
             return new RSACryptoServiceProvider();

@@ -33,21 +33,29 @@ namespace Client_ViggiCoin_v2._0
 
         private CServer(List<CPeer> Peers)
         {
-            rsaKeyPair = new RSACryptoServiceProvider();// crea oggetto CSP per generare o caricare il keypair
+            rsaKeyPair = RSA.GenRSAKey();// crea oggetto CSP per generare o caricare il keypair
             if (File.Exists("keystore.xml"))// Se il file di keystore esiste viene caricato in memoria
             {
-                rsaKeyPair = new RSACryptoServiceProvider();
-                string xmlString = rsaKeyPair.ToXmlString(true);
-                File.WriteAllText("keystore.xml", xmlString);
+                
+                string xmlString = File.ReadAllText("keystore.xml");
+                rsaKeyPair.FromXmlString(xmlString);
             }
             else//se il file non esiste ne viene generato uno
             {
-                rsaKeyPair = RSA.GenRSAKey();
+                
                 string xmlString = rsaKeyPair.ToXmlString(true);
                 File.WriteAllText("keystore.xml", xmlString);
             }
 
-            
+            string pubKey = RSA.ExportPubKey(rsaKeyPair);
+            Console.WriteLine("origin pubkey :" + pubKey);
+            RSACryptoServiceProvider nCsp = new RSACryptoServiceProvider();
+            string nPubKey = RSA.ExportPubKey(nCsp);
+            Console.WriteLine("new pubkey :" + nPubKey);
+            RSA.ImportPubKey(pubKey, nCsp);
+            nPubKey = RSA.ExportPubKey(nCsp);
+            Console.WriteLine("updated new pubkey :" + nPubKey);
+
             mLastBlockNumber = CBlockChain.Instance.LastBlock.BlockNumber;
             if (Program.DEBUG)
                 CIO.DebugOut("Last block number: " + mLastBlockNumber+".");
