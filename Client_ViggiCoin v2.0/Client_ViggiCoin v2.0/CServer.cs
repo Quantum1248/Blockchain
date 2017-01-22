@@ -118,7 +118,6 @@ namespace Client_ViggiCoin_v2._0
             }
         }
 
-
         //attende il collegamento di nuovi peer
         private void StartAcceptUsersConnection()
         {
@@ -165,39 +164,21 @@ namespace Client_ViggiCoin_v2._0
 
         private void UpdateBlockchain()
         {
-            //TODO download a blocchi invece che copleto in una volta.
-            while (!IsStopped)
+            ArgumentWrapper<CBlock> otherLastValidBlc = new ArgumentWrapper<CBlock>();
+            ArgumentWrapper<CBlock[]> newBlocks = new ArgumentWrapper<CBlock[]>();
+            ArgumentWrapper<bool> blockchainValidity = new ArgumentWrapper<bool>();
+
+            mPeers.DoRequest(ERequest.LastValidBlock, otherLastValidBlc);
+            if (CBlockChain.Instance.LastValidBlock.BlockNumber <= otherLastValidBlc.Value.BlockNumber)
             {
-                CBlock lastBlc = new CBlock();
-                CBlock[] newBlock;
-                bool[] blockchainValidity=new bool[]{false};
-
-                mPeers.DoRequest(ERequest.CheckBlockchainValidity,blockchainValidity);
-                if (blockchainValidity[0])
-                {
-                    mPeers.DoRequest(ERequest.LastBlockNumber, lastBlc);
-                    if (lastBlc.BlockNumber > CBlockChain.Instance.LastBlock.BlockNumber)
-                    {
-                        newBlock = new CBlock[lastBlc.BlockNumber - CBlockChain.Instance.LastBlock.BlockNumber];
-                        //(!) i vari peer potrebbero avere versioni diverse della blockchain, è un problema? forse dovrei scaricare solo da chi ha il blocco più vecchio
-                        // ^  Già risolto validando un blocco alla volta? fai dei test
-                        mPeers.DoRequest(ERequest.DownloadMissingBlock, newBlock);
-                        foreach (CBlock b in newBlock)
-                            if (CBlockChain.Validate(b))
-                                CBlockChain.Add(b);
-                            else
-                                break;
-                        //TODO se c'è un blocco non valido fare qualcosa, per esempio controllare il blocco non valido tra i vari peer e poi se viene trovato un blocco valido ripartire da quello
-                    }
-
-                }
-                else
-                {
-
-                }
-                    Thread.Sleep(10000);
-            
+                mPeers.DoRequest(ERequest.DownloadMissingValidBlock, newBlocks);
+                CBlockChain.AddBlock(newBlocks.Value);
+                mPeers.DoRequest(ERequest.DownloadSixtyBlock, newBlocks);
+                CBlockChain.AddBlock(newBlocks.Value);
             }
+
+            //TODO Abilitare la ricezione di nuovi blocchi.
+
         }
 
         private void InsertNewPeer(Socket NewConnection)

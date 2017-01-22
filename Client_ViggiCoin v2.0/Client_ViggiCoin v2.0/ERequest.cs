@@ -13,6 +13,8 @@ namespace Client_ViggiCoin_v2._0
         LastBlockNumber,
         UpdateBlockchain,
         DownloadMissingBlock,
-        CheckBlockchainValidity
+        LastValidBlock,
+        DownloadMissingValidBlock,
+        DownloadSixtyBlock,
     }
 }

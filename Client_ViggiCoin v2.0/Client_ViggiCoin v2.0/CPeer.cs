@@ -151,7 +151,7 @@ namespace Client_ViggiCoin_v2._0
                     }
                     catch
                     {
-                        Thread.Sleep(1000); //(!)forse è meglio attendere fuori dal lock.
+                        Thread.Sleep(1000); //(!)forse è meglio attendere fuori dal lock. E forse non serve comunque perchè il thread si ferma già quando è in attesa di connessioni.
                     }
                     //il timer viene reinpostato a defoult per non causare problemi con altre comunicazioni che potrebbero avvenire in altre parti del codice.
                     mSocket.ReceiveTimeout = 0;
