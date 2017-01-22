@@ -7,7 +7,7 @@ using System.Net.Sockets;
 using System.Net;
 using System.Security.Cryptography;
 
-namespace Client_ViggiCoin_v2._0
+namespace Blockchain
 {
     class CPeer
     {
@@ -159,9 +159,6 @@ namespace Client_ViggiCoin_v2._0
             }
         }
 
-        public void GenerateTX()
-        {
 
-        }
     }
 }

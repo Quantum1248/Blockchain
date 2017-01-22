@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Client_ViggiCoin_v2._0
+namespace Blockchain
 {
     //Wrapper usato per ritornare valori dalla funzione CPeers.DoRequest()
     class ArgumentWrapper<T>

@@ -8,7 +8,7 @@ using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.IO;
 
-namespace Client_ViggiCoin_v2._0
+namespace Blockchain
 {
     class CServer
     {
@@ -46,15 +46,6 @@ namespace Client_ViggiCoin_v2._0
                 string xmlString = rsaKeyPair.ToXmlString(true);
                 File.WriteAllText("keystore.xml", xmlString);
             }
-
-            string pubKey = RSA.ExportPubKey(rsaKeyPair);
-            Console.WriteLine("origin pubkey :" + pubKey);
-            RSACryptoServiceProvider nCsp = new RSACryptoServiceProvider();
-            string nPubKey = RSA.ExportPubKey(nCsp);
-            Console.WriteLine("new pubkey :" + nPubKey);
-            RSA.ImportPubKey(pubKey, nCsp);
-            nPubKey = RSA.ExportPubKey(nCsp);
-            Console.WriteLine("updated new pubkey :" + nPubKey);
 
             mLastBlockNumber = CBlockChain.Instance.LastBlock.BlockNumber;
             if (Program.DEBUG)

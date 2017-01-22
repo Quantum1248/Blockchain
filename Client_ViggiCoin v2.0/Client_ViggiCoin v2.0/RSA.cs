@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Client_ViggiCoin_v2._0
+namespace Blockchain
 {
     //TODO
     static class RSA
@@ -71,14 +71,14 @@ namespace Client_ViggiCoin_v2._0
 
         }
 
-        public static string ExportPubKey(RSACryptoServiceProvider csp)
+        public static string ExportPubKey(RSACryptoServiceProvider csp) //esporta la chiave pubblica del csp dato in una stringa codificata in base64
         {
             byte[] blob = csp.ExportCspBlob(false);
             string pubKey = Convert.ToBase64String(blob);
             return pubKey;
         }
 
-        public static void ImportPubKey(string base64PubKey, RSACryptoServiceProvider csp)
+        public static void ImportPubKey(string base64PubKey, RSACryptoServiceProvider csp)//importa la chiave pubblica nell'oggetto specificato data una stringa base64
         {
             byte[] blob = Convert.FromBase64String(base64PubKey);
             csp.ImportCspBlob(blob);
