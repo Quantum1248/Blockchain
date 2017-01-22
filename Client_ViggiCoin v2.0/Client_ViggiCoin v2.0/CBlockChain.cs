@@ -52,5 +52,10 @@ namespace Client_ViggiCoin_v2._0
         {
             throw new System.NotImplementedException();
         }
+
+        internal static void Add(CBlock[] b)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -169,12 +169,12 @@ namespace Client_ViggiCoin_v2._0
             ArgumentWrapper<bool> blockchainValidity = new ArgumentWrapper<bool>();
 
             mPeers.DoRequest(ERequest.LastValidBlock, otherLastValidBlc);
-            if (CBlockChain.Instance.LastValidBlock.BlockNumber <= otherLastValidBlc.Value.BlockNumber)
+            if (CBlockChain.Instance.LastBlock.BlockNumber <= otherLastValidBlc.Value.BlockNumber)
             {
                 mPeers.DoRequest(ERequest.DownloadMissingValidBlock, newBlocks);
-                CBlockChain.AddBlock(newBlocks.Value);
+                CBlockChain.Add(newBlocks.Value);
                 mPeers.DoRequest(ERequest.DownloadSixtyBlock, newBlocks);
-                CBlockChain.AddBlock(newBlocks.Value);
+                CBlockChain.Add(newBlocks.Value);
             }
 
             //TODO Abilitare la ricezione di nuovi blocchi.
