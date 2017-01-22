@@ -1,0 +1,25 @@
+c:\users\manuel\documents\visual studio 2015\Projects\Client_ViggiCoin v2.0\Client_ViggiCoin v2.0\bin\Debug\Client_ViggiCoin v2.0.exe.config
+C:\Users\Manuel\Documents\Programmi\c#\Client_ViggiCoin v2.0\Client_ViggiCoin v2.0\bin\Debug\Client_ViggiCoin v2.0.exe.config
+C:\Users\Manuel\Documents\Programmi\c#\Client_ViggiCoin v2.0\Client_ViggiCoin v2.0\obj\Debug\Client_ViggiCoin v2.0.csprojResolveAssemblyReference.cache
+C:\Users\Manuel\Documents\Programmi\c#\Client_ViggiCoin v2.0\Client_ViggiCoin v2.0\bin\Debug\Client_ViggiCoin v2.0.exe
+C:\Users\Manuel\Documents\Programmi\c#\Client_ViggiCoin v2.0\Client_ViggiCoin v2.0\bin\Debug\Client_ViggiCoin v2.0.pdb
+C:\Users\Manuel\Documents\Programmi\c#\Client_ViggiCoin v2.0\Client_ViggiCoin v2.0\obj\Debug\Client_ViggiCoin v2.0.exe
+C:\Users\Manuel\Documents\Programmi\c#\Client_ViggiCoin v2.0\Client_ViggiCoin v2.0\obj\Debug\Client_ViggiCoin v2.0.pdb
+E:\Client_ViggiCoin v2.0\Client_ViggiCoin v2.0\bin\Debug\Client_ViggiCoin v2.0.exe.config
+E:\Client_ViggiCoin v2.0\Client_ViggiCoin v2.0\obj\Debug\Client_ViggiCoin v2.0.exe
+E:\Client_ViggiCoin v2.0\Client_ViggiCoin v2.0\obj\Debug\Client_ViggiCoin v2.0.pdb
+C:\Users\Marco\Documents\Visual Studio 2015\Projects\Blockchain\Client_ViggiCoin v2.0\Client_ViggiCoin v2.0\bin\Debug\Client_ViggiCoin v2.0.exe.config
+C:\Users\Marco\Documents\Visual Studio 2015\Projects\Blockchain\Client_ViggiCoin v2.0\Client_ViggiCoin v2.0\obj\Debug\Client_ViggiCoin v2.0.exe
+C:\Users\Marco\Documents\Visual Studio 2015\Projects\Blockchain\Client_ViggiCoin v2.0\Client_ViggiCoin v2.0\obj\Debug\Client_ViggiCoin v2.0.pdb
+C:\Users\Marco\Documents\Visual Studio 2015\Projects\Blockchain\Client_ViggiCoin v2.0\Client_ViggiCoin v2.0\bin\Debug\Client_ViggiCoin v2.0.exe
+C:\Users\Marco\Documents\Visual Studio 2015\Projects\Blockchain\Client_ViggiCoin v2.0\Client_ViggiCoin v2.0\bin\Debug\Client_ViggiCoin v2.0.pdb
+C:\Users\Marco\Documents\Visual Studio 2015\Projects\Blockchain\Client_ViggiCoin v2.0\Client_ViggiCoin v2.0\obj\Debug\Client_ViggiCoin v2.0.csprojResolveAssemblyReference.cache
+C:\Users\Manuel\Documents\Programmi\Git\Blockchain\Client_ViggiCoin v2.0\Client_ViggiCoin v2.0\bin\Debug\Client_ViggiCoin v2.0.exe.config
+C:\Users\Manuel\Documents\Programmi\Git\Blockchain\Client_ViggiCoin v2.0\Client_ViggiCoin v2.0\obj\Debug\Client_ViggiCoin v2.0.exe
+C:\Users\Manuel\Documents\Programmi\Git\Blockchain\Client_ViggiCoin v2.0\Client_ViggiCoin v2.0\obj\Debug\Client_ViggiCoin v2.0.pdb
+C:\Users\Manuel\Documents\Programmi\Git\Blockchain\Client_ViggiCoin v2.0\Client_ViggiCoin v2.0\bin\Debug\Client_ViggiCoin v2.0.exe
+C:\Users\Manuel\Documents\Programmi\Git\Blockchain\Client_ViggiCoin v2.0\Client_ViggiCoin v2.0\bin\Debug\Client_ViggiCoin v2.0.pdb
+C:\Users\Manuel\Documents\Programmi\Git\Blockchain\Client_ViggiCoin v2.0\Client_ViggiCoin v2.0\obj\Debug\Client_ViggiCoin v2.0.csprojResolveAssemblyReference.cache
+C:\Users\Manuel\Documents\Programmi\Git\Blockchain\Blockchain\Client_ViggiCoin v2.0\Client_ViggiCoin v2.0\bin\Debug\Client_ViggiCoin v2.0.exe.config
+C:\Users\Manuel\Documents\Programmi\Git\Blockchain\Blockchain\Client_ViggiCoin v2.0\Client_ViggiCoin v2.0\obj\Debug\Client_ViggiCoin v2.0.exe
+C:\Users\Manuel\Documents\Programmi\Git\Blockchain\Blockchain\Client_ViggiCoin v2.0\Client_ViggiCoin v2.0\obj\Debug\Client_ViggiCoin v2.0.pdb
