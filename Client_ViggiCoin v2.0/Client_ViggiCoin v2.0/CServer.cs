@@ -8,7 +8,7 @@ using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.IO;
 
-namespace Client_ViggiCoin_v2._0
+namespace Blockchain
 {
     class CServer
     {

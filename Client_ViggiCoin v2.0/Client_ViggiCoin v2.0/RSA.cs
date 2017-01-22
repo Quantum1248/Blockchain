@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Client_ViggiCoin_v2._0
+namespace Blockchain
 {
     //TODO
     static class RSA

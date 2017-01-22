@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Client_ViggiCoin_v2._0
+namespace Blockchain
 {
     public class CBlock
     {
