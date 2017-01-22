@@ -50,6 +50,8 @@
     <Compile Include="CIO.cs" />
     <Compile Include="CPeer.cs" />
     <Compile Include="CServer.cs" />
+    <Compile Include="CTemporaryBlock.cs" />
+    <Compile Include="ECommand.cs" />
     <Compile Include="ERequest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -104,19 +104,48 @@ namespace Client_ViggiCoin_v2._0
             }
         }
 
-        public void SendData(string Msg)
+        public void SendCommand(ECommand Cmd)
         {
-            byte[] EncryptedMsg;
-            EncryptedMsg = RSA.Encrypt(ASCIIEncoding.ASCII.GetBytes(Msg), csp.ExportParameters(false), false);
-            CServer.SendData(mSocket, EncryptedMsg);//non è asincrono!!
+            switch (Cmd)
+            {
+                default:
+                    throw new ArgumentException("Comando al peer non supportato.");
+            }
         }
 
-        public string ReceiveData()
+        public ECommand ReceiveCommand()
         {
-            byte[] DecryptedMsg;
-            DecryptedMsg = RSA.Decrypt(CServer.ReceiveData(mSocket), cspMine.ExportParameters(true), false);
-            return ASCIIEncoding.ASCII.GetString(DecryptedMsg);
+            string msg = ReceiveString();
+            switch(msg)
+            {
+                default:
+                    throw new ArgumentException("Ricevuta stringa di comando non supportata.");
+            }
         }
+
+        public void SendString(string Msg)
+        {
+            SendData(ASCIIEncoding.ASCII.GetBytes(Msg));//non è asincrono!!
+        }
+
+        public string ReceiveString()
+        {
+            return ASCIIEncoding.ASCII.GetString(ReceiveData());
+
+        }
+
+        //TODO Criptare le comunicazioni
+        public void SendData(byte[] Msg)
+        {
+            CServer.SendData(mSocket, Msg);//non è asincrono!!
+        }
+
+        public byte[] ReceiveData()
+        {
+            return CServer.ReceiveData(mSocket);
+        }
+
+
 
         /// <summary>
         /// Rimane in attesa di messaggi dal peer a cui è collegato il socket mSocket.

@@ -87,18 +87,21 @@ namespace Client_ViggiCoin_v2._0
         /// Esegue una richiesta ai peer collegati.
         /// </summary>
         /// <param name="Rqs">Richiesta da effettuare.</param>
-        /// <param name="Arg">Parametro usato per ritornare un risultato quando necessario.</param>
+        /// <param name="Arg">Parametro usato per passare un valore e/o ritornare un risultato quando necessario.</param>
         /// <returns></returns>
-        public bool DoRequest(ERequest Rqs, object Arg=null)
+        public void DoRequest(ERequest Rqs, object Arg = null)  //(!) rivedere i metodi di input/output del metodo
         {
             switch (Rqs)
             {
                 case ERequest.UpdatePeers:
                     UpdatePeers();
-                    return true;
+                    break;
                 case ERequest.SendPeersList:
                     SendPeersList(Arg as CPeer);
-                    return true;
+                    break;
+                case ERequest.LastValidBlock:
+                    RequestLastValidBlock();
+                    break;
                 default:
                     throw new ArgumentException("Invalid request.");
             }
@@ -106,12 +109,12 @@ namespace Client_ViggiCoin_v2._0
 
         private void UpdatePeers()
         {
-            string ris="";
+            string ris = "";
             string msg;
             string[] lists;
             string[] peers;
-            List<CPeer>  receivedPeers = new List<CPeer>(), newPeers=new List<CPeer>();
-            for(int i = 0; i < mPeers.Length; i++)
+            List<CPeer> receivedPeers = new List<CPeer>(), newPeers = new List<CPeer>();
+            for (int i = 0; i < mPeers.Length; i++)
             {
                 if (mPeers[i] != null)
                 {
@@ -119,14 +122,14 @@ namespace Client_ViggiCoin_v2._0
                     lock (mPeers[i].Socket)
                     {
                         mPeers[i].SendData("LOCK"); //(!)in realtà non serve a niente?
-                        msg=mPeers[i].ReceiveData();
-                        if(msg=="OK")
+                        msg = mPeers[i].ReceiveData();
+                        if (msg == "OK")
                         {
                             mPeers[i].SendData("UPDATEPEERS");
                             msg = mPeers[i].ReceiveData();
-                            ris += msg+"/";
+                            ris += msg + "/";
                         }
-                       // mPeers[i].SendData("ENDLOCK");
+                        // mPeers[i].SendData("ENDLOCK");
                     }
                 }
             }
@@ -175,14 +178,51 @@ namespace Client_ViggiCoin_v2._0
 
         private void SendPeersList(CPeer Peer)
         {
-            string PeersList="";
+            string PeersList = "";
             for (int i = 0; i < mPeers.Length; i++)
             {
                 if (mPeers[i] != null)
-                    PeersList += mPeers[i].IP+","+mPeers[i].Port+";";
+                    PeersList += mPeers[i].IP + "," + mPeers[i].Port + ";";
             }
-            PeersList =PeersList.TrimEnd(';' );
+            PeersList = PeersList.TrimEnd(';');
             Peer.SendData(PeersList);
+        }
+
+        private CTemporaryBlock RequestLastValidBlock()
+        {
+            List<CTemporaryBlock> blocks = new List<CTemporaryBlock>();
+            CTemporaryBlock ris = null;
+            ECommand cmd;
+            string msg;
+
+            foreach (CPeer p in mPeers)
+            {
+                p.SendCommand(ECommand.LOOK);
+                cmd = p.ReceiveCommand();
+                if (cmd == ECommand.OK)
+                {
+                    p.SendCommand(ECommand.GET);
+                    cmd = p.ReceiveCommand();
+                    if (cmd == ECommand.OK)
+                    {
+                        p.SendCommand(ECommand.LASTVALID);
+                        msg = p.ReceiveString();
+                        blocks.Add(new CTemporaryBlock(CBlock.Deserialize(msg), p));
+                    }
+                }
+            }
+
+            if (blocks[0] != null)
+            {
+                ris = blocks[0];
+                foreach (CTemporaryBlock b in blocks)
+                {
+                    if (ris.BlockNumber < b.BlockNumber)
+                        ris = b;
+                }
+            }
+            return ris;
+
         }
 
     }

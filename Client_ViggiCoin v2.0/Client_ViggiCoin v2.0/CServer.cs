@@ -169,7 +169,7 @@ namespace Client_ViggiCoin_v2._0
             ArgumentWrapper<bool> blockchainValidity = new ArgumentWrapper<bool>();
 
             mPeers.DoRequest(ERequest.LastValidBlock, otherLastValidBlc);
-            if (CBlockChain.Instance.LastBlock.BlockNumber <= otherLastValidBlc.Value.BlockNumber)
+            if (CBlockChain.Instance.LastValidBlock.BlockNumber <= otherLastValidBlc.Value.BlockNumber)
             {
                 mPeers.DoRequest(ERequest.DownloadMissingValidBlock, newBlocks);
                 CBlockChain.Add(newBlocks.Value);

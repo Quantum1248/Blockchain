@@ -4,8 +4,8 @@ namespace Client_ViggiCoin_v2._0
 {
     class CBlockChain
     {
-        private CBlock mLastBlock=null;
-
+        private CBlock mLastBlock=null; //ultimo blocco ricevuto
+        private CBlock mLastValidBlock = null;  //ultimo blocco sicuramente valido
         #region Singleton
         private static CBlockChain instance;
 
@@ -32,13 +32,18 @@ namespace Client_ViggiCoin_v2._0
             get { return mLastBlock; }
         }
 
+        public CBlock LastValidBlock
+        {
+            get { return mLastBlock; }
+        }
+
         /// <summary>
         /// Carica l'ultimo blocco della blockchain.
         /// </summary>
         private void Load()
         {
             StreamReader file = new StreamReader("blockchain.txt");
-            mLastBlock = CBlock.Deserialize(file.ReadLine());  
+            mLastValidBlock = CBlock.Deserialize(file.ReadLine());  
 
         }
 
